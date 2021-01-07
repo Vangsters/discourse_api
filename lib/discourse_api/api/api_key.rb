@@ -2,28 +2,22 @@
 module DiscourseApi
   module API
     module ApiKey
-      def list_api_keys
-        response = get("/admin/api/keys")
-        response[:body]
+      def api
+        response = get("/admin/api.json")
+        response.body
       end
 
-      def generate_api_key(args)
-        args = API.params(args)
-          .required(:key)
-          .to_h
-        post("/admin/api/keys", args)
+      def generate_master_key
+        response = post("/admin/api/key")
       end
 
       def revoke_api_key(id)
-        post("/admin/api/keys/#{id}/revoke")
+        response = delete("/admin/api/key", id: id)
       end
 
-      def undo_revoke_api_key(id)
-        post("/admin/api/keys/#{id}/undo-revoke")
-      end
-
-      def delete_api_key(id)
-        delete("/admin/api/keys/#{id}")
+      def regenerate_api_key(id)
+        response = put("/admin/api/key", id: id)
+        response.body
       end
     end
   end

@@ -90,13 +90,6 @@ module DiscourseApi
 
         post("/t/#{topic_id}/change-owner.json", params)
       end
-
-      def topic_set_user_notification(args = {})
-        category_id = args[:id]
-        args = API.params(args)
-          .required(:notification_level)
-        post("/t/#{category_id}/notifications", args)
-      end
     end
   end
 end
